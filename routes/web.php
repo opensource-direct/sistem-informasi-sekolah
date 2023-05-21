@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('administrator')->middleware(['auth', 'auth.administrator'])->group(function () {
+    // Ini route khusus administrator
+});
+
+Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function () {
+    // Ini route khusus operator
+});
+
+Route::prefix('wali')->middleware(['auth', 'auth.wali'])->group(function () {
+    // Ini route khusus wali
+});
+
+Route::get('logout', function () {
+    Auth::logout();
 });
 
 Auth::routes();
