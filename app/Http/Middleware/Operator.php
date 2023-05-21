@@ -16,7 +16,7 @@ class Operator
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->akses == 'operator' || $request->user()->akses == 'administrator') {
+        if ($request->user()->status == 'operator' || $request->user()->status == 'administrator') {
             return $next($request);
         }
         abort(403, 'Akses khusus Operator atau Administrator');
